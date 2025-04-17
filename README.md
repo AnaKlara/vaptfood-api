@@ -2,9 +2,9 @@
 
 Este projeto é uma API RESTful [Spring](http://projects.spring.io/spring-boot/) inspirada no sistema do iFood. Permite o gerenciamento de restaurantes, pedidos e usuários, facilitando a interação entre clientes e estabelecimentos.
 
-## Diagrama de Classes
+## Diagrama de Entidades
 
-
+![Diagrama Vaptfood](docs/diagrama_de_entidades.png)
 
 ## Requisitos da Máquina
 
