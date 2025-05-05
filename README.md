@@ -6,24 +6,26 @@ Este projeto é uma API RESTful [Spring](http://projects.spring.io/spring-boot/)
 
 ![Diagrama Vaptfood](docs/diagrama_de_entidades.png)
 
-## Requisitos da Máquina
+## Softwares de Base
 
-Para rodar a aplicação você irá precisar de:
+Para desenvolver a aplicação você irá precisar instalar na sua máquina:
 
-*   [JDK ](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) - Java™ Platform, Standard Edition Development Kit 
+*   [JDK 17](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) - Java™ Platform, Standard Edition Development Kit 
 *   [Maven 3](https://maven.apache.org) - Gerenciador de Dependências
 * 	[Flyway](https://flywaydb.org/) - Controle de versão do banco de dados
-* 	[Spring Boot](https://spring.io/projects/spring-boot) - Framework para facilitar o bootstrapping and desenvolvimento de novas aplicações Spring 
-* 	[MySQL](https://www.mysql.com/) - Sistema de Gerenciamento de Banco de Dados Relacional Open-Source 
+* 	[Spring Boot 2.7.9](https://spring.io/projects/spring-boot) - Framework para facilitar o bootstrapping and desenvolvimento de novas aplicações Spring 
+* 	[MySQL 8](https://www.mysql.com/) - Sistema de Gerenciamento de Banco de Dados Relacional Open-Source 
 * 	[Git](https://git-scm.com/) - Sistema de Controle de Versão
 
 
 ## Ferramentas Externas Utilizadas
 
-* [Postman](https://www.getpostman.com/) - API Development Environment (Testing Documentation)
+* [Postman*](https://www.getpostman.com/) - API Development Environment (Testing Documentation)
 * [JasperSoft](https://www.jaspersoft.com/) - Embedded Analytics and Reporting Software (Geração de relatórios em pdf)
 * [Thymeleaf](https://www.thymeleaf.org/) - Server-side Java template engine (Template dos e-mails)
 
+
+*A pasta docs contém um arquivo com todas as requisições possíveis para a API. Bastando apenas importar e utilizar no postman.
 
 ## Rodando a Aplicação Localmente
 
@@ -42,7 +44,7 @@ Há diversos caminhos para rodar uma aplicação com Spring Boot na sua máquina
 Uma alternativa é utilizar o [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) com o comando:
 
 ```shell
-mvn spring-boot:run
+    mvn spring-boot:run
 ```
 
 ### Segurança
@@ -50,23 +52,23 @@ mvn spring-boot:run
 No `pom.xml` podemos observar as dependências necessárias ao bom funcionamento dos requisitos de segurança adequados para o projeto:
 
 ```
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-security</artifactId>
-		    <version>2.2.2.RELEASE</version>
-		</dependency>
-				
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-			<version>2.3.5.RELEASE</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-jwt</artifactId>
-		    <version>1.0.0.RELEASE</version>
-		</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+    <version>2.2.2.RELEASE</version>
+</dependency>
+        
+<dependency>
+    <groupId>org.springframework.security.oauth</groupId>
+    <artifactId>spring-security-oauth2</artifactId>
+    <version>2.3.5.RELEASE</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-jwt</artifactId>
+    <version>1.0.0.RELEASE</version>
+</dependency>
 ```
 
 
