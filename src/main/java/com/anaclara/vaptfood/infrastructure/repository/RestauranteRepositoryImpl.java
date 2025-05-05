@@ -22,6 +22,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     public List<Restaurante> find(String nome,
                                   BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 
+
         var jpql = new StringBuilder();
         jpql.append("from Restaurante where 0 = 0 ");
 
