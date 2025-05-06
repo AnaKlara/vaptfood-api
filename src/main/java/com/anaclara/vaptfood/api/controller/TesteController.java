@@ -4,8 +4,6 @@ import com.anaclara.vaptfood.domain.model.Cozinha;
 import com.anaclara.vaptfood.domain.model.Restaurante;
 import com.anaclara.vaptfood.domain.repository.CozinhaRepository;
 import com.anaclara.vaptfood.domain.repository.RestauranteRepository;
-import com.anaclara.vaptfood.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
-import com.anaclara.vaptfood.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+
+import static com.anaclara.vaptfood.infrastructure.repository.spec.RestauranteSpecs.comFreteGratis;
+import static com.anaclara.vaptfood.infrastructure.repository.spec.RestauranteSpecs.comNomeSemelhante;
 
 
 @RestController
@@ -65,10 +66,9 @@ public class TesteController {
 
     @GetMapping("/restaurantes/com-frete-gratis")
     public List<Restaurante> restaurantesComFreteGratis(String nome) {
-        var comFreteGratis = new RestauranteComFreteGratisSpec();
-        var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
 
-        return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+        return restauranteRepository.findAll(comFreteGratis()
+                .and(comNomeSemelhante(nome)));
     }
 
     @GetMapping("/restaurantes/count-por-cozinha")
