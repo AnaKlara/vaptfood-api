@@ -112,3 +112,11 @@ O projeto tem uma estrutura de diretórios particular. Uma árvore representativ
 
 
 Qualquer dúvida e/ou feedback escreva um e-mail para claracorreadasilva@gmail.com
+
+#### Links Uteis
+
+https://datatracker.ietf.org/doc/html/rfc7807
+
+
+https://beanvalidation.org/
+https://hibernate.org/validator/
