@@ -115,8 +115,11 @@ Qualquer dúvida e/ou feedback escreva um e-mail para claracorreadasilva@gmail.c
 
 #### Links Uteis
 
+Padronização de mensagens de erro
 https://datatracker.ietf.org/doc/html/rfc7807
 
 
+Validações de campos
 https://beanvalidation.org/
 https://hibernate.org/validator/
+https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints
