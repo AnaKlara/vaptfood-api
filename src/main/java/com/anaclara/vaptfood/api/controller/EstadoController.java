@@ -1,5 +1,9 @@
 package com.anaclara.vaptfood.api.controller;
 
+import com.anaclara.vaptfood.api.assembler.EstadoInputDisassembler;
+import com.anaclara.vaptfood.api.assembler.EstadoModelAssembler;
+import com.anaclara.vaptfood.api.model.EstadoModel;
+import com.anaclara.vaptfood.api.model.input.EstadoInput;
 import com.anaclara.vaptfood.domain.model.Estado;
 import com.anaclara.vaptfood.domain.repository.EstadoRepository;
 import com.anaclara.vaptfood.domain.service.CadastroEstadoService;
@@ -21,30 +25,46 @@ public class EstadoController {
     @Autowired
     private CadastroEstadoService cadastroEstado;
 
+    @Autowired
+    private EstadoModelAssembler estadoModelAssembler;
+
+    @Autowired
+    private EstadoInputDisassembler estadoInputDisassembler;
+
     @GetMapping
-    public List<Estado> listar() {
-        return estadoRepository.findAll();
+    public List<EstadoModel> listar() {
+        List<Estado> todosEstados = estadoRepository.findAll();
+
+        return estadoModelAssembler.toCollectionModel(todosEstados);
     }
 
     @GetMapping("/{estadoId}")
-    public Estado buscar(@PathVariable Long estadoId) {
-        return cadastroEstado.buscarOuFalhar(estadoId);
+    public EstadoModel buscar(@PathVariable Long estadoId) {
+        Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
+
+        return estadoModelAssembler.toModel(estado);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estado adicionar(@RequestBody @Valid Estado estado) {
-        return cadastroEstado.salvar(estado);
+    public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+        Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
+
+        estado = cadastroEstado.salvar(estado);
+
+        return estadoModelAssembler.toModel(estado);
     }
 
     @PutMapping("/{estadoId}")
-    public Estado atualizar(@PathVariable Long estadoId,
-                            @RequestBody @Valid Estado estado) {
+    public EstadoModel atualizar(@PathVariable Long estadoId,
+                                 @RequestBody @Valid EstadoInput estadoInput) {
         Estado estadoAtual = cadastroEstado.buscarOuFalhar(estadoId);
 
-        BeanUtils.copyProperties(estado, estadoAtual, "id");
+        estadoInputDisassembler.copyToDomainObject(estadoInput, estadoAtual);
 
-        return cadastroEstado.salvar(estadoAtual);
+        estadoAtual = cadastroEstado.salvar(estadoAtual);
+
+        return estadoModelAssembler.toModel(estadoAtual);
     }
 
     @DeleteMapping("/{estadoId}")
