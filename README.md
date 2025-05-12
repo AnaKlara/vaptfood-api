@@ -123,3 +123,6 @@ Validações de campos
 https://beanvalidation.org/
 https://hibernate.org/validator/
 https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints
+
+Data e Hora em APIs
+https://apiux.com/2013/03/20/5-laws-api-dates-and-times/
