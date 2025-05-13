@@ -71,4 +71,20 @@ public class RestauranteController {
         }
     }
 
+    // Foi o utilizado o métod PUT para que a requisição represente
+    //  corretamente que é uma operação idempotente
+    @PutMapping("/{restauranteId}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativar(@PathVariable Long restauranteId) {
+        cadastroRestaurante.ativar(restauranteId);
+    }
+
+    // Foi o utilizado o métod DELETE para que a requisição represente
+    //  corretamente que é uma operação idempotente
+    @DeleteMapping("/{restauranteId}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativar(@PathVariable Long restauranteId) {
+        cadastroRestaurante.inativar(restauranteId);
+    }
+
 }
