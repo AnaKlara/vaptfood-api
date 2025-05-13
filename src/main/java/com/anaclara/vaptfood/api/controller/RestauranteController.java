@@ -4,8 +4,10 @@ import com.anaclara.vaptfood.api.assembler.RestauranteInputDisassembler;
 import com.anaclara.vaptfood.api.assembler.RestauranteModelAssembler;
 import com.anaclara.vaptfood.api.model.RestauranteModel;
 import com.anaclara.vaptfood.api.model.input.RestauranteInput;
+import com.anaclara.vaptfood.domain.exception.CidadeNaoEncontradaException;
 import com.anaclara.vaptfood.domain.exception.CozinhaNaoEncontradaException;
 import com.anaclara.vaptfood.domain.exception.NegocioException;
+import com.anaclara.vaptfood.domain.exception.RestauranteNaoEncontradoException;
 import com.anaclara.vaptfood.domain.model.Restaurante;
 import com.anaclara.vaptfood.domain.repository.RestauranteRepository;
 import com.anaclara.vaptfood.domain.service.CadastroRestauranteService;
@@ -52,7 +54,7 @@ public class RestauranteController {
             Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 
             return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restaurante));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
@@ -66,25 +68,53 @@ public class RestauranteController {
             restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
 
             return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restauranteAtual));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
 
-    // Foi o utilizado o métod PUT para que a requisição represente
-    //  corretamente que é uma operação idempotente
     @PutMapping("/{restauranteId}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void ativar(@PathVariable Long restauranteId) {
         cadastroRestaurante.ativar(restauranteId);
     }
 
-    // Foi o utilizado o métod DELETE para que a requisição represente
-    //  corretamente que é uma operação idempotente
     @DeleteMapping("/{restauranteId}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void inativar(@PathVariable Long restauranteId) {
         cadastroRestaurante.inativar(restauranteId);
+    }
+
+    @PutMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            cadastroRestaurante.ativar(restauranteIds);
+        } catch (RestauranteNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    @DeleteMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            cadastroRestaurante.inativar(restauranteIds);
+        } catch (RestauranteNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    @PutMapping("/{restauranteId}/abertura")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void abrir(@PathVariable Long restauranteId) {
+        cadastroRestaurante.abrir(restauranteId);
+    }
+
+    @PutMapping("/{restauranteId}/fechamento")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void fechar(@PathVariable Long restauranteId) {
+        cadastroRestaurante.fechar(restauranteId);
     }
 
 }

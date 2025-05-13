@@ -4,7 +4,7 @@ Este projeto é uma API RESTful [Spring](http://projects.spring.io/spring-boot/)
 
 ## Diagrama de Entidades
 
-![Diagrama Vaptfood](docs/diagrama_de_entidades.png)
+![Diagrama Vaptfood](docs/images/diagrama_de_entidades.png)
 
 ## Softwares de Base
 
@@ -126,3 +126,6 @@ https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#s
 
 Data e Hora em APIs
 https://apiux.com/2013/03/20/5-laws-api-dates-and-times/
+
+UUId
+https://www.uuidgenerator.net/
